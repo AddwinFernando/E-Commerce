@@ -86,6 +86,7 @@ let initProductData = [
 // ];
 
 window.addEventListener("load", () => {
+  console.log("connected")
   if (!localStorage.getItem("users")) {
     localStorage.setItem("users", JSON.stringify(initUserArr));
   }

@@ -1,0 +1,27 @@
+body{
+    padding: 0%;
+}
+.login-container{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card{
+    height: 50vh;
+    width: 80vw;
+}
+.product{
+    background-color: aqua !important;
+}
+.sign-in-up{
+    margin-top: -10px;
+    color: rgba(0, 0, 0, 0.479);
+}
+.add-card{
+    height: 100vh;
+    width: 60vw !important;
+}
+#error{
+    padding: -20px;
+}

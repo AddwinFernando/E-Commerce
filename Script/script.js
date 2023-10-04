@@ -500,5 +500,5 @@ let deliver = (id) => {
 
 const logout = () => {
   sessionStorage.removeItem("user");
-  location.replace("/E-Commerce/pages/index.html");
+  location.replace("/E-Commerce/index.html");
 };

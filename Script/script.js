@@ -252,8 +252,6 @@ let productAdd = () => {
   let descriptionRef = document.getElementById("productDescription");
   let thumbnailRef = document.getElementById("productThumbnail");
   let productData = JSON.parse(localStorage.getItem("productData"));
-
-  toast;
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const id = urlParams.get("id");

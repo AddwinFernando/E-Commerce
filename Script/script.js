@@ -114,9 +114,9 @@ window.addEventListener("load", () => {
   if (location.pathname === "/E-Commerce/pages/user-orders.html") {
     loadCheckOutPage();
   }
-  if (location.pathname === "/E-Commerce/pages/admin/addproduct.html") {
-    loadAddProducts();
-  }
+  // if (location.pathname === "/E-Commerce/pages/admin/addproduct.html") {
+  //   loadAddProducts();
+  // }
   if (location.pathname === `/E-Commerce/pages/admin/addproduct.html`) {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);

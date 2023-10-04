@@ -95,9 +95,9 @@ window.addEventListener("load", () => {
     localStorage.setItem("productData", JSON.stringify(initProductData));
   }
 
-  if (!localStorage.getItem("category")) {
-    localStorage.setItem("category", JSON.stringify(productCategory));
-  }
+  // if (!localStorage.getItem("category")) {
+  //   localStorage.setItem("category", JSON.stringify(productCategory));
+  // }
 
   if (location.pathname === "/pages/admin/admin.html") {
     loadAdminTable();

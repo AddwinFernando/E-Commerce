@@ -99,7 +99,7 @@ window.addEventListener("load", () => {
   //   localStorage.setItem("category", JSON.stringify(productCategory));
   // }
 
-  if (location.pathname === "/pages/admin/admin.html") {
+  if (location.pathname === "/E-Commerce/pages/admin/admin.html") {
     loadAdminTable();
   }
   if (location.pathname === "/pages/admin/orders.html") {

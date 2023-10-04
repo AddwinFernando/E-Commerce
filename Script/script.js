@@ -102,22 +102,22 @@ window.addEventListener("load", () => {
   if (location.pathname === "/E-Commerce/pages/admin/admin.html") {
     loadAdminTable();
   }
-  if (location.pathname === "/pages/admin/orders.html") {
+  if (location.pathname === "/E-Commerce/pages/admin/orders.html") {
     loadAdminOrderPage();
   }
-  if (location.pathname === "/pages/user.html") {
+  if (location.pathname === "/E-Commerce/pages/user.html") {
     loadUserPage();
   }
-  if (location.pathname === "/pages/cart.html") {
+  if (location.pathname === "/E-Commerce/pages/cart.html") {
     loadCart();
   }
-  if (location.pathname === "/pages/user-orders.html") {
+  if (location.pathname === "/E-Commerce/pages/user-orders.html") {
     loadCheckOutPage();
   }
-  if (location.pathname === "/pages/admin/addproduct.html") {
+  if (location.pathname === "/E-Commerce/pages/admin/addproduct.html") {
     loadAddProducts();
   }
-  if (location.pathname === `/pages/admin/addproduct.html`) {
+  if (location.pathname === `/E-Commerce/pages/admin/addproduct.html`) {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get("id");
@@ -285,7 +285,7 @@ let productAdd = () => {
     });
   }
   localStorage.setItem("productData", JSON.stringify(productData));
-  location.href = "/pages/admin/admin.html";
+  location.href = "/E-Commerce/pages/admin/admin.html";
 };
 
 //DELETE FROM ADMIN TABLE
@@ -303,7 +303,7 @@ let productEdit = (id) => {
   const currProduct = productData.find(
     (product) => product.id === parseInt(id)
   );
-  location.href = `/pages/admin/addproduct.html?id=${id}`;
+  location.href = `/E-Commerce/pages/admin/addproduct.html?id=${id}`;
   localStorage.setItem("editData", JSON.stringify(currProduct));
 };
 
@@ -502,5 +502,5 @@ let deliver = (id) => {
 
 const logout = () => {
   sessionStorage.removeItem("user");
-  location.replace("/pages/index.html");
+  location.replace("/E-Commerce/pages/index.html");
 };

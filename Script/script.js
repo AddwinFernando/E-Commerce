@@ -196,9 +196,9 @@ let signIn = () => {
     if (signInverify) {
       sessionStorage.setItem("user", signInverify.id);
       if (signInEmailRef.value === "admin@admin.com") {
-        location.replace("/pages/admin/admin.html");
+        location.replace("/E-Commerce//pages/admin/admin.html");
       } else {
-        location.replace("/pages/user.html");
+        location.replace("/E-Commerce//pages/user.html");
       }
     } else {
       signInErrorRef.innerText = "Password or Email Doesn't Match";

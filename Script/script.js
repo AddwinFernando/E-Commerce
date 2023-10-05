@@ -87,7 +87,7 @@ order = [];
 // ];
 
 window.addEventListener("load", () => {
-  console.log("connected")
+  console.log("connected");
   if (!localStorage.getItem("users")) {
     localStorage.setItem("users", JSON.stringify(initUserArr));
   }
@@ -420,7 +420,7 @@ let loadCart = () => {
 //Check-Out
 
 let checkOut = () => {
-   let cartData = JSON.parse(localStorage.getItem("cart"));
+  let cartData = JSON.parse(localStorage.getItem("cart"));
   let currUser = parseInt(sessionStorage.getItem("user"));
   let email = JSON.parse(localStorage.getItem("users")).find(
     (user) => user.id === currUser
@@ -449,8 +449,8 @@ let checkOut = () => {
       price: product.price,
     });
   }
-  cartData = cartData.filter((item)=> item.user !== currUser);
-  localStorage.setItem("cart",JSON.stringify(cartData));
+  cartData = cartData.filter((item) => item.user !== currUser);
+  localStorage.setItem("cart", JSON.stringify(cartData));
   localStorage.setItem("orders", JSON.stringify(order));
 };
 
@@ -473,7 +473,7 @@ let loadCheckOutPage = () => {
 // Admin Orders
 let loadAdminOrderPage = () => {
   let adminOrderTableRef = document.getElementById("adminOrderTable");
-  order = JSON.parse(localStorage.getItem("orders")); 
+  order = JSON.parse(localStorage.getItem("orders"));
   tbody = "";
   for (let product of order) {
     tbody += `<tr>

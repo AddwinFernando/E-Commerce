@@ -80,6 +80,7 @@ let initProductData = [
     thumbnail: "https://i.dummyjson.com/data/products/10/thumbnail.jpeg",
   },
 ];
+order = [];
 // let productCategory = [
 //   { id: 101, name: "mobile" },
 //   { id: 102, name: "laptop" },

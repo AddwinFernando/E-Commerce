@@ -128,6 +128,12 @@ window.addEventListener("load", () => {
   }
 });
 
+//validate email
+let validateEmail = (email) => {
+  var regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  return regex.test(email);
+};
+
 // random num generator
 let randomnum = (n = 1000) => {
   return Math.floor(n * Math.random());
@@ -153,29 +159,34 @@ let signUp = () => {
   let confirmPasswordRef = document.getElementById("confirmPassword");
   let userArr = JSON.parse(localStorage.getItem("users"));
   let errorMessageRef = document.getElementById("error");
-  emailcheck = userArr.find((data) => data.email === emailRef.value);
+  let emailcheck = userArr.find((data) => data.email === emailRef.value);
+  let emailValid = validateEmail(emailRef.value);
 
-  if (emailRef.value.length > 0 && passwordRef.value.length > 0) {
-    if (!emailcheck) {
-      if (passwordRef.value === confirmPasswordRef.value) {
-        userArr.push({
-          id: userId(),
-          email: emailRef.value,
-          password: passwordRef.value,
-        });
-        localStorage.setItem("users", JSON.stringify(userArr));
-        errorMessageRef.innerText = `Success Please Sign in`;
-        emailRef.value = "";
-        passwordRef.value = "";
-        confirmPasswordRef.value = "";
+  if (emailValid) {
+    if (emailRef.value.length > 0 && passwordRef.value.length > 0) {
+      if (!emailcheck) {
+        if (passwordRef.value === confirmPasswordRef.value) {
+          userArr.push({
+            id: userId(),
+            email: emailRef.value,
+            password: passwordRef.value,
+          });
+          localStorage.setItem("users", JSON.stringify(userArr));
+          errorMessageRef.innerText = `Success Please Sign in`;
+          emailRef.value = "";
+          passwordRef.value = "";
+          confirmPasswordRef.value = "";
+        } else {
+          errorMessageRef.innerText = "Passowrds doesn't match";
+        }
       } else {
-        errorMessageRef.innerText = "Passowrds doesn't match";
+        errorMessageRef.innerText = "email id already exists";
       }
     } else {
-      errorMessageRef.innerText = "email id already exists";
+      errorMessageRef.innerText = "Please fill out all the feild";
     }
   } else {
-    errorMessageRef.innerText = "Please fill out all the feild";
+    errorMessageRef.innerText = "Email invalid";
   }
 };
 
@@ -186,6 +197,7 @@ let signIn = () => {
   let signInPasswordRef = document.getElementById("signInPassword");
   let signInErrorRef = document.getElementById("signInError");
   let userArr = JSON.parse(localStorage.getItem("users"));
+  let emailvalid = validateEmail(signInEmailRef.value);
 
   signInverify = userArr.find(
     (data) =>
@@ -193,19 +205,23 @@ let signIn = () => {
       data.password === signInPasswordRef.value
   );
 
-  if (signInEmailRef.value.length > 0 && signInPasswordRef.value.length > 0) {
-    if (signInverify) {
-      sessionStorage.setItem("user", signInverify.id);
-      if (signInEmailRef.value === "admin@admin.com") {
-        location.replace("/E-Commerce/pages/admin/admin.html");
+  if (emailvalid) {
+    if (signInEmailRef.value.length > 0 && signInPasswordRef.value.length > 0) {
+      if (signInverify) {
+        sessionStorage.setItem("user", signInverify.id);
+        if (signInEmailRef.value === "admin@admin.com") {
+          location.replace("/E-Commerce/pages/admin/admin.html");
+        } else {
+          location.replace("/E-Commerce/pages/user.html");
+        }
       } else {
-        location.replace("/E-Commerce/pages/user.html");
+        signInErrorRef.innerText = "Password or Email Doesn't Match";
       }
     } else {
-      signInErrorRef.innerText = "Password or Email Doesn't Match";
+      signInErrorRef.innerText = "Feilds Empty";
     }
   } else {
-    signInErrorRef.innerText = "Feilds Empty";
+    signInErrorRef.innerText = "Email invalid";
   }
 };
 

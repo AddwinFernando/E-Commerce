@@ -232,8 +232,10 @@ let loadAdminTable = () => {
   let productData = JSON.parse(localStorage.getItem("productData"));
 
   let tbody = "";
-  for (let entry of productData) {
-    tbody += `<tr>
+
+  if (parseInt(sessionStorage.getItem("user")) == 1) {
+    for (let entry of productData) {
+      tbody += `<tr>
     <th scope="row"><img src="${
       entry.thumbnail
     }" alt="Image" style="width:100px;height:50px;"></th>
@@ -243,11 +245,14 @@ let loadAdminTable = () => {
     <td><button class="btn me-2" onclick = "productEdit(${
       entry.id
     })"> Edit </button><button class="btn btn-danger" onclick = "productDelete(${
-      entry.id
-    })"> Delete </button></td>
+        entry.id
+      })"> Delete </button></td>
   </tr>`;
+    }
+    tableDataRef.innerHTML = tbody;
+  } else {
+    location.replace("/E-Commerce");
   }
-  tableDataRef.innerHTML = tbody;
 };
 
 //CATEGORY-SELECTOR

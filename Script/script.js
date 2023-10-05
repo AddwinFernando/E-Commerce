@@ -432,6 +432,7 @@ let checkOut = () => {
 
   for (let product of cartData) {
     order.push({
+      user: currUser,
       id: product.id,
       title: product.title,
       status: "Processing",
@@ -446,7 +447,11 @@ let checkOut = () => {
 
 let loadCheckOutPage = () => {
   let orderTableRef = document.getElementById("orderTable");
-  order = JSON.parse(localStorage.getItem("orders"));
+  let order = JSON.parse(localStorage.getItem("orders"));
+  let currUser = parseInt(sessionStorage.getItem("user"));
+
+  order = order.filter((orderdata)=> orderdata.user === currUser);
+
   tbody = "";
   for (let product of order) {
     tbody += `<tr>
@@ -461,7 +466,7 @@ let loadCheckOutPage = () => {
 // Admin Orders
 let loadAdminOrderPage = () => {
   let adminOrderTableRef = document.getElementById("adminOrderTable");
-  order = JSON.parse(localStorage.getItem("orders"));
+  order = JSON.parse(localStorage.getItem("orders")); 
   tbody = "";
   for (let product of order) {
     tbody += `<tr>
@@ -470,7 +475,7 @@ let loadAdminOrderPage = () => {
     <td>${product.email}</td>
     <td>${product.title}</td>
     <td>${product.price}</td>
-    <td><button class="btn btn-primary" onclick = "deliver(${product.id})" id = "deliver">Deliver</button></td>
+    <td id ="deliver"><button class="btn btn-primary" onclick = "deliver(${product.id})">Deliver</button></td>
   </tr>`;
   }
   adminOrderTableRef.innerHTML = tbody;
@@ -490,10 +495,9 @@ let deliver = (id) => {
       return product;
     }
   });
-  console.log(order.status);
   localStorage.setItem("orders", JSON.stringify(order));
   let deliverBtnRef = document.getElementById("deliver");
-  deliverBtnRef.innerHTML = `<button class="btn btn-primary" id = "deliver" disable>Delivered</button>`;
+  deliverBtnRef.innerHTML = `<p>Delivered</p>`;
 };
 
 //Log-OUt

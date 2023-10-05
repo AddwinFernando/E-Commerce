@@ -363,12 +363,14 @@ let addProduct = (id) => {
   if (localStorage.getItem("cart")) {
     cart = JSON.parse(localStorage.getItem("cart"));
   }
-  let itemCheck = cart.find((product) => product.id === id);
-  count = 1;
+  let itemCheck = cart.find(
+    (product) =>
+      product.id === parseInt(id) && product.user === parseInt(userId)
+  );
   console.log(itemCheck);
   if (itemCheck) {
     cart = cart.map((item) => {
-      if (item.id === itemCheck.id) {
+      if (item.id === itemCheck.id && item.user === itemCheck.user) {
         return { ...item, quantity: item.quantity + 1 };
       } else {
         return item;
@@ -395,12 +397,12 @@ let loadCart = () => {
   let cartData = JSON.parse(localStorage.getItem("cart"));
   let footRef = document.getElementById("tableFooter");
 
-  cartData = cartData.filter((data) => data.user === currUser);
+  let filteredCartData = cartData.filter((data) => data.user === currUser);
 
   let tbody = "";
   let total = 0;
   let sn = 0;
-  for (let item of cartData) {
+  for (let item of filteredCartData) {
     sn += 1;
     total = total + item.quantity * item.price;
     tbody += `<tr>
@@ -417,8 +419,7 @@ let loadCart = () => {
 //Check-Out
 
 let checkOut = () => {
-  let cartData = JSON.parse(localStorage.getItem("cart"));
-  let order = [];
+   let cartData = JSON.parse(localStorage.getItem("cart"));
   let currUser = parseInt(sessionStorage.getItem("user"));
   let email = JSON.parse(localStorage.getItem("users")).find(
     (user) => user.id === currUser
@@ -429,10 +430,16 @@ let checkOut = () => {
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
   let currentDate = `${day}-${month}-${year}`;
+  const userCart = cartData.filter((item) => item.user === currUser);
+  console.log(userCart);
 
-  for (let product of cartData) {
+  if (localStorage.getItem("orders")) {
+    order = JSON.parse(localStorage.getItem("orders"));
+  }
+
+  for (let product of userCart) {
     order.push({
-      user: currUser,
+      userId: currUser,
       id: product.id,
       title: product.title,
       status: "Processing",
@@ -441,19 +448,18 @@ let checkOut = () => {
       price: product.price,
     });
   }
+  cartData = cartData.filter((item)=> item.user !== currUser);
+  localStorage.setItem("cart",JSON.stringify(cartData));
   localStorage.setItem("orders", JSON.stringify(order));
-  localStorage.removeItem("cart");
 };
 
 let loadCheckOutPage = () => {
   let orderTableRef = document.getElementById("orderTable");
-  let order = JSON.parse(localStorage.getItem("orders"));
   let currUser = parseInt(sessionStorage.getItem("user"));
-
-  order = order.filter((orderdata)=> orderdata.user === currUser);
-
+  let order = JSON.parse(localStorage.getItem("orders"));
+  let urserOrder = order.filter((data) => data.userId === currUser);
   tbody = "";
-  for (let product of order) {
+  for (let product of urserOrder) {
     tbody += `<tr>
     <th scope="row">${product.id}</th>
     <td>${product.title}</td>

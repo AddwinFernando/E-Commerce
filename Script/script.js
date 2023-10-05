@@ -424,18 +424,22 @@ let loadCart = () => {
   let tbody = "";
   let total = 0;
   let sn = 0;
-  for (let item of filteredCartData) {
-    sn += 1;
-    total = total + item.quantity * item.price;
-    tbody += `<tr>
+  if (parseInt(sessionStorage.getItem("user")) == 1) {
+    for (let item of filteredCartData) {
+      sn += 1;
+      total = total + item.quantity * item.price;
+      tbody += `<tr>
     <th scope="row">${sn}</th>
     <td>${item.title}</td>
     <td>${item.quantity}</td>
     <td>$${item.price * item.quantity}</td>
     </tr>`;
+    }
+    footRef.innerHTML = `<td colspan = "3" class="text-end">Total =</td> <td>$${total}</td>`;
+    tableRef.innerHTML = tbody;
+  } else {
+    location.replace("/E-Commerce");
   }
-  footRef.innerHTML = `<td colspan = "3" class="text-end">Total =</td> <td>$${total}</td>`;
-  tableRef.innerHTML = tbody;
 };
 
 //Check-Out
@@ -481,14 +485,19 @@ let loadCheckOutPage = () => {
   let order = JSON.parse(localStorage.getItem("orders"));
   let urserOrder = order.filter((data) => data.userId === currUser);
   tbody = "";
-  for (let product of urserOrder) {
-    tbody += `<tr>
+
+  if (parseInt(sessionStorage.getItem("user")) == 1) {
+    for (let product of urserOrder) {
+      tbody += `<tr>
     <th scope="row">${product.id}</th>
     <td>${product.title}</td>
     <td>${product.status}</td>
   </tr>`;
+    }
+    orderTableRef.innerHTML = tbody;
+  } else {
+    location.replace("/E-Commerce");
   }
-  orderTableRef.innerHTML = tbody;
 };
 
 // Admin Orders
@@ -496,8 +505,9 @@ let loadAdminOrderPage = () => {
   let adminOrderTableRef = document.getElementById("adminOrderTable");
   order = JSON.parse(localStorage.getItem("orders"));
   tbody = "";
-  for (let product of order) {
-    tbody += `<tr>
+  if (parseInt(sessionStorage.getItem("user")) == 1) {
+    for (let product of order) {
+      tbody += `<tr>
     <th scope="row">${product.id}</th>
     <td>${product.date}</td>
     <td>${product.email}</td>
@@ -505,8 +515,11 @@ let loadAdminOrderPage = () => {
     <td>${product.price}</td>
     <td id ="deliver"><button class="btn btn-primary" onclick = "deliver(${product.id})">Deliver</button></td>
   </tr>`;
+    }
+    adminOrderTableRef.innerHTML = tbody;
+  } else {
+    location.replace("/E-Commerce");
   }
-  adminOrderTableRef.innerHTML = tbody;
 };
 
 //Delivery-Status

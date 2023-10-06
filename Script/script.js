@@ -476,6 +476,7 @@ let checkOut = () => {
   cartData = cartData.filter((item) => item.user !== currUser);
   localStorage.setItem("cart", JSON.stringify(cartData));
   localStorage.setItem("orders", JSON.stringify(order));
+  loadCart();
 };
 
 let loadCheckOutPage = () => {
@@ -512,7 +513,7 @@ let loadAdminOrderPage = () => {
     <td>${product.email}</td>
     <td>${product.title}</td>
     <td>${product.price}</td>
-    <td id ="deliver"><button class="btn btn-primary" onclick = "deliver(${product.id})">Deliver</button></td>
+    <td id ="deliver${product.id}"><button class="btn btn-primary" onclick = "deliver(${product.id})">Deliver</button></td>
   </tr>`;
     }
     adminOrderTableRef.innerHTML = tbody;
@@ -536,7 +537,7 @@ let deliver = (id) => {
     }
   });
   localStorage.setItem("orders", JSON.stringify(order));
-  let deliverBtnRef = document.getElementById("deliver");
+  let deliverBtnRef = document.getElementById(`deliver${id}`);
   deliverBtnRef.innerText = `Delivered`;
   deliverBtnRef.classList.add("Disabled") 
 };

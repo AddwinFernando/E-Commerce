@@ -389,7 +389,6 @@ let addProduct = (id) => {
     (product) =>
       product.id === parseInt(id) && product.user === parseInt(userId)
   );
-  console.log(itemCheck);
   if (itemCheck) {
     cart = cart.map((item) => {
       if (item.id === itemCheck.id && item.user === itemCheck.user) {
@@ -538,7 +537,8 @@ let deliver = (id) => {
   });
   localStorage.setItem("orders", JSON.stringify(order));
   let deliverBtnRef = document.getElementById("deliver");
-  deliverBtnRef.innerHTML = `<p>Delivered</p>`;
+  deliverBtnRef.innerText = `Delivered`;
+  deliverBtnRef.classList.add("Disabled") 
 };
 
 //Log-OUt

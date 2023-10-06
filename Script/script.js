@@ -423,7 +423,7 @@ let loadCart = () => {
   let tbody = "";
   let total = 0;
   let sn = 0;
-  if (parseInt(sessionStorage.getItem("user")) == 1) {
+  if (parseInt(sessionStorage.getItem("user"))) {
     for (let item of filteredCartData) {
       sn += 1;
       total = total + item.quantity * item.price;
@@ -485,7 +485,7 @@ let loadCheckOutPage = () => {
   let urserOrder = order.filter((data) => data.userId === currUser);
   tbody = "";
 
-  if (parseInt(sessionStorage.getItem("user")) == 1) {
+  if (parseInt(sessionStorage.getItem("user"))) {
     for (let product of urserOrder) {
       tbody += `<tr>
     <th scope="row">${product.id}</th>
